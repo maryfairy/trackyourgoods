@@ -51,5 +51,17 @@
 				<div class="col-md-1"></div>
 			</div>
 		</a>
+		<h4> 			
+			<a href="{{url_for('editCloset', closet_id = closet.id)}}">
+				<button class="btn btn-default" id="new-closet">
+					<span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>Edit Name
+				</button>
+			</a>
+			<a href="{{url_for('deleteCloset', closet_id = closet.id)}}">
+				<button class="btn btn-default" id="new-closet">
+					<span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>Delete Closet
+				</button>
+			</a>
+		</h4>  
 	{% endfor %}
 {% endblock %}

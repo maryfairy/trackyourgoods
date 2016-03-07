@@ -155,8 +155,6 @@ def getUserID(email):
         return None
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
-
-
 @app.route('/gdisconnect')
 def gdisconnect():
         # Only disconnect a connected user.
@@ -197,7 +195,9 @@ def gdisconnect():
 @app.route('/')
 @app.route('/closets/')
 def showClosets():
-    closets = session.query(Closet).order_by(asc(Closet.name))
+    currentUserId = login_session['user_id']
+    closets = session.query(Closet).filter_by(user_id = currentUserId).order_by(asc(Closet.name))
+    ## Only want to make the users closets visible
     if 'username' not in login_session:
         return render_template('publicclosets.html', closets=closets)
     else:
@@ -257,7 +257,7 @@ def showItems(closet_id):
     closets = session.query(Closet).filter_by(id=closet_id)
     #creator = getUserInfo(closets.user_id)
     items = session.query(Item).filter_by(closet_id=closet_id).all()
-    return render_template('item.html', items=items)
+    return render_template('items.html', items=items, closet_id=closet_id)
     ##TODO: Make sure limit by user id what items can be viewed
     # if 'username' not in login_session:
     #     return render_template('publicclosets.html', closets=closets)
