@@ -187,7 +187,30 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
+### JSON APIs (basically same format as in the closet lesson)
+# @app.route('/closet/<int:closet_id>/item/JSON')
+# def closetMenuJSON(closet_id):
+#     closet = session.query(Closet).filter_by(id=closet_id).one()
+#     items = session.query(Item).filter_by(
+#         closet_id=closet_id).all()
+#     return jsonify(Items=[i.serialize for i in items])
 
+
+# @app.route('/closet/<int:closet_id>/item/<int:item_id>/JSON')
+# def ItemJSON(closet_id, item_id):
+#     Item = session.query(Item).filter_by(id=item_id).one()
+#     return jsonify(Item=Item.serialize)
+
+
+@app.route('/closet/JSON')
+def closetsJSON():
+    closets = session.query(Closet).all()
+    return jsonify(closets=[r.serialize for r in closets])
+
+@app.route('/closet/<int:closet_id>/item/<int:item_id>/JSON')
+def ItemJSON(closet_id, item_id):
+    items = session.query(Item).filter_by(id=item_id).one()
+    return jsonify(Item=items.serialize)
 
 ## Part 1: Add in all Mock/Ups / URLs
 
