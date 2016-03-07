@@ -1,0 +1,59 @@
+
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+	<body>
+
+<h1> Edit Item Item </h1>
+
+<form action="{{ url_for('editItem',closet_id = closet_id, item_id=item.id)}}" method = 'post'>
+
+<dl>
+	<dt>Name:</dt>
+		<dd><input type ='text' size='30' name='name' placeholder = '{{item.name }}'></dd>
+	<dt>Description:</dt>
+		<dd><textarea name = 'description' rows='5' cols='40' placeholder = '{{item.description }}'></textarea></dd>
+	<dt>Value:</dt>
+		<dd><input type = 'text' size = '8' name='value' placeholder = '{{item.value}}'></dd>
+	<dt>Category:</dt>
+
+	{% if item.category == 'Clothing' %}
+		<dd><input type ='radio' name='category' value='Clothing'checked >Clothing</dd>
+	{%else%}
+	<dd><input type ='radio' name='category' value='Clothing' >Clothing</dd>
+    {% endif %}
+
+	{% if item.category == 'Electronics' %}
+		<dd><input type ='radio' name='category' value='Electronics'checked >Clothing</dd>
+	{%else%}
+	<dd><input type ='radio' name='category' value='Electronics' >Electronics</dd>
+    {% endif %}
+
+	{% if item.category == 'Office + Living' %}
+		<dd><input type ='radio' name='category' value='Office + Living'checked >Clothing</dd>
+	{%else%}
+	<dd><input type ='radio' name='category' value='Office + Living' >Office + Living</dd>
+    {% endif %}
+
+	{% if item.category == 'Kitchen + Dining' %}
+		<dd><input type ='radio' name='category' value='Kitchen + Dining'checked >Clothing</dd>
+	{%else%}
+	<dd><input type ='radio' name='category' value='Kitchen + Dining' >Kitchen + Dining</dd>
+    {% endif %}
+
+	{% if item.category == 'Bedroom' %}
+		<dd><input type ='radio' name='category' value='Bedroom'checked >Clothing</dd>
+	{%else%}
+	<dd><input type ='radio' name='category' value='Bedroom' >Bedroom</dd>
+    {% endif %}
+
+	{% if item.category == 'Bathroom' %}
+		<dd><input type ='radio' name='category' value='Bathroom'checked >Clothing</dd>
+	{%else%}
+	<dd><input type ='radio' name='category' value='Bathroom' >Bathroom</dd>
+    {% endif %}
+
+	<button type="submit" class="btn btn-default" id="submit" type="submit">
+	<span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Create</button>
+</dl>
