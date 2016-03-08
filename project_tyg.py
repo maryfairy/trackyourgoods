@@ -141,11 +141,9 @@ def createUser(login_session):
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
-
 def getUserInfo(user_id):
     user = session.query(User).filter_by(id=user_id).one()
     return user
-
 
 def getUserID(email):
     try:
@@ -177,8 +175,11 @@ def gdisconnect():
         del login_session['email']
         del login_session['picture']
 
-        response = make_response(json.dumps('Successfully disconnected.'), 200)
-        response.headers['Content-Type'] = 'application/json'
+        # Change logout so you remain on homepage closets/
+        #response = make_response(json.dumps('Successfully disconnected.'), 200)
+        #response.headers['Content-Type'] = 'application/json'
+        
+        response = "<script>function myFunction() {alert('Successfully disconnected.');}</script><body onload='myFunction()''>"
         return response
     else:
         # For whatever reason, the given token was invalid.
@@ -201,11 +202,28 @@ def itemItemJSON(closet_id, item_id):
     Items = session.query(Item).filter_by(id=item_id).one()
     return jsonify(Item=Items.serialize)
 
+### JSON APIs (basically same format as in the closet lesson)
+@app.route('/closet/<int:closet_id>/item/JSON')
+def closetMenuJSON(closet_id):
+    closet = session.query(Closet).filter_by(id=closet_id).one()
+    items = session.query(Item).filter_by(
+        closet_id=closet_id).all()
+    return jsonify(Items=[i.serialize for i in items])
+
+@app.route('/closet/<int:closet_id>/item/<int:item_id>/JSON')
+def ItemJSON(closet_id, item_id):
+    Item = session.query(Item).filter_by(id=item_id).one()
+    return jsonify(Item=Item.serialize)
 
 @app.route('/closet/JSON')
 def closetsJSON():
     closets = session.query(Closet).all()
     return jsonify(closets=[r.serialize for r in closets])
+
+@app.route('/closet/<int:closet_id>/item/<int:item_id>/JSON')
+def ItemJSON(closet_id, item_id):
+    items = session.query(Item).filter_by(id=item_id).one()
+    return jsonify(Item=items.serialize)
 
 ## Part 1: Add in all Mock/Ups / URLs
 
@@ -213,13 +231,18 @@ def closetsJSON():
 @app.route('/')
 @app.route('/closets/')
 def showClosets():
+    credentials = login_session.get('credentials')
+    if credentials is None:
+        ##TODO: make alert function and then redirect to Login Page
+        return redirect('/login')
+        #response = "<script>function myFunction() {alert('Not Loggedin, Please Login.'); }</script><body onload='myFunction()''>"
     currentUserId = login_session['user_id']
     closets = session.query(Closet).filter_by(user_id = currentUserId).order_by(asc(Closet.name))
     ## Only want to make the users closets visible
     if 'username' not in login_session:
-        return render_template('publicclosets.html', closets=closets)
+        return render_template('publicclosets.html', closets=closets, login_session=login_session)
     else:
-        return render_template('closets.html', closets=closets)
+        return render_template('closets.html', closets=closets, login_session=login_session)
 
 # CREATE a new Closet
 @app.route('/closets/new/', methods=['GET', 'POST'])
@@ -275,7 +298,7 @@ def showItems(closet_id):
     closets = session.query(Closet).filter_by(id=closet_id)
     #creator = getUserInfo(closets.user_id)
     items = session.query(Item).filter_by(closet_id=closet_id).all()
-    return render_template('items.html', items=items, closet_id=closet_id)
+    return render_template('items.html', items=items, closet_id=closet_id, login_session=login_session)
     ##TODO: Make sure limit by user id what items can be viewed
     # if 'username' not in login_session:
     #     return render_template('publicclosets.html', closets=closets)

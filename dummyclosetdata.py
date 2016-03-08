@@ -24,32 +24,32 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 # Create dummy user
-# User1 = User(name="Mary Lesbirel", email="marylesbirel@gmail.com",
-#              picture='http://www.tofighthiv.org/images/friendraiser_uploads/1770.1000514908.custom.jpg')
-# session.add(User1)
-# session.commit()
+User1 = User(name="Mary Lesbirel", email="marylesbirel@gmail.com",
+             picture='http://www.tofighthiv.org/images/friendraiser_uploads/1770.1000514908.custom.jpg')
+session.add(User1)
+session.commit()
 
-# # Create dummy closet
-# closet1 = Closet(user_id=1, name="Mary's First Closet")
+# Create dummy closet
+closet1 = Closet(user_id=1, name="Mary's First Closet")
 
-# session.add(closet1)
-# session.commit()
+session.add(closet1)
+session.commit()
 
-# ## Date purchased
-# purchasedate = datetime.date.today() - relativedelta(months=3)
+## Date purchased
+purchasedate = datetime.date.today() - relativedelta(months=3)
 
-# Create dummy items
-# Item1 = Item(name = "Bicycle", \
-# 		    description = "Specialized Dolce Elite 2009", \
-# 		    value = "$1200", \
-# 		    category = "Hobbies", \
-# 		    closet = closet1 \
-# 		    #upload_date = datetime.date.today(), \
-# 		    #date_purchased = purchasedate
-# 		    )
+#Create dummy items
+Item1 = Item(name = "Bicycle", \
+		    description = "Specialized Dolce Elite 2009", \
+		    value = "$1200", \
+		    category = "Hobbies", \
+		    closet = closet1 \
+		    #upload_date = datetime.date.today(), \
+		    #date_purchased = purchasedate
+		    )
 
-# session.add(Item1)
-# session.commit()
+session.add(Item1)
+session.commit()
 
 # closet2 = Closet(user_id=2, name="Mary's First Closet")
 
@@ -65,15 +65,15 @@ session = DBSession()
 # session.add(Item1)
 # session.commit()
 
-Item2 = Item(name = "Bicycle", \
-		    description = "Specialized Dolce Elite 2009", \
-		    value = "$1200", \
-		    category = "Hobbies", \
-		    closet = 3, \
-		    user = 2
-		    #upload_date = datetime.date.today(), \
-		    #date_purchased = purchasedate
-		    )
+# Item2 = Item(name = "Bicycle", \
+# 		    description = "Specialized Dolce Elite 2009", \
+# 		    value = "$1200", \
+# 		    category = "Hobbies", \
+# 		    closet = 3, \
+# 		    user = 2
+# 		    #upload_date = datetime.date.today(), \
+# 		    #date_purchased = purchasedate
+# 		    )
 
-session.add(Item2)
-session.commit()
+# session.add(Item2)
+# session.commit()
