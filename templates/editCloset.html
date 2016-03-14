@@ -13,6 +13,7 @@
 		<div class="col-md-6 col-md-offset-1 padding-top">
 			<form action="{{ url_for('editCloset',closet_id = closet.id)}}" method = "post">
 				<div class="form-group">
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
 					<label for="name">Name:</label>
 					<input type ="text" class="form-control" name="name" value="{{closet.name }}">
 					<div class="padding-bottom"></div>

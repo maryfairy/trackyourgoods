@@ -50,6 +50,7 @@ session = DBSession()
 
 ### AUTH Code(all copied from the lesson)
 # Create anti-forgery state token
+@csrf.exempt
 @app.route('/login')
 def showLogin():
 	state = ''.join(random.choice(string.ascii_uppercase + string.digits)
@@ -59,7 +60,7 @@ def showLogin():
 	#return "The current session state is %s" % login_session['state']
 	return render_template('login.html', STATE=state)
 
-
+@csrf.exempt
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
 	# Validate state token
