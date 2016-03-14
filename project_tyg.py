@@ -8,6 +8,7 @@ from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, User, Closet, Category, Item
 from flask import session as login_session
+from dict2xml import dict2xml as xmlify
 import random
 import string
 from oauth2client.client import flow_from_clientsecrets
@@ -244,7 +245,12 @@ def ItemJSON(closet_id, item_id):
 	items = session.query(Item).filter_by(id=item_id).one()
 	return jsonify(Item=items.serialize)
 
-## Part 1: Add in all Mock/Ups / URLs
+### Adding XML API
+@app.route('/closet/<int:closet_id>/collection_XML')
+def closet_items_XML(closet_id):
+    closet_xml = session.query(Item).filter_by(closet_id = closet_id).all()
+    return render_template('closet_items.xml', closet_xml = closet_xml)
+
 
 # Show all Closets
 @app.route('/')
