@@ -65,4 +65,6 @@ items = session.query(Item).all()
 for closet in items:
 	print closet.id
 	print closet.name
+	print closet.photo_link
+	print closet.receipt_image
 

@@ -51,6 +51,8 @@ class Item(Base):
 	closet = relationship(Closet)
 	user_id = Column(Integer, ForeignKey('user.id'))
 	user = relationship(User)
+	photo_link = Column(String(250))
+	receipt_image = Column(String(250))
 	#upload_date = Column(Date)
 	#date_purchased = Column(Date)
 
