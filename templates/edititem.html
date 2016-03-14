@@ -1,22 +1,49 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>New Closet Item</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-1 padding-top">
+			<form action="{{ url_for('editItem',closet_id = item.closet_id, item_id=item.id)}}" method = 'post' enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="name">Name:</label>
+					<input type ="text" maxlength="50" class="form-control" name="name"placeholder="{{item.name }}">
 
-<html>
-<head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-	<body>
+					<label for="description">Description:</label>
+					<textarea class="form-control" maxlength="250" rows="3" name="description" placeholder="{{item.description }}"></textarea>
 
-<h1> Edit Item Item </h1>
+					<label for="value">Value:</label>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<input type ="text" class="form-control" maxlength="10" name="value" placeholder="{{item.value}}">
+					</div>
 
-<form action="{{ url_for('editItem',closet_id = closet_id, item_id=item.id)}}" method = 'post'>
+					<div>
+					<label for="file">Image</label>
+					<div class="input-group">
+					<input type ="file" name="file" accept = "image/*">
+					</div>
 
-<dl>
-	<dt>Name:</dt>
-		<dd><input type ='text' size='30' name='name' placeholder = '{{item.name }}'></dd>
-	<dt>Description:</dt>
-		<dd><textarea name = 'description' rows='5' cols='40' placeholder = '{{item.description }}'></textarea></dd>
-	<dt>Value:</dt>
-		<dd><input type = 'text' size = '8' name='value' placeholder = '{{item.value}}'></dd>
-	<dt>Category:</dt>
+
+					<!-- <label for="price">Upload Date:</label>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<input type ="date" class="form-control" maxlength="10" name="upload_date" placeholder="Date">
+					</div>
+					<label for="price">Date Purchased:</label>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<input type ="date" class="form-control" maxlength="10" name="date_purchased" placeholder="Date"> -->
+<!-- 					</div> -->
+					<p></p>
+					<dt>Category:</dt>
 
 	{% if item.category == 'Clothing' %}
 		<dd><input type ='radio' name='category' value='Clothing'checked >Clothing</dd>
@@ -52,8 +79,37 @@
 		<dd><input type ='radio' name='category' value='Bathroom'checked >Clothing</dd>
 	{%else%}
 	<dd><input type ='radio' name='category' value='Bathroom' >Bathroom</dd>
-    {% endif %}
+	{% endif %}
+	{% if item.category == 'Hobbies' %}
+		<dd><input type ='radio' name='category' value='Hobbies'checked >Hobbies</dd>
+	{%else%}
+	<dd><input type ='radio' name='category' value='Bathroom' >Hobbies</dd>
+	{% endif %}
 
-	<button type="submit" class="btn btn-default" id="submit" type="submit">
-	<span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Create</button>
-</dl>
+	<div>
+	<label for="category">Receipt</label>
+	</div>
+
+
+	<div>
+	<label for="receipt_image">Receipt Image</label>
+	<div class="input-group">
+		<input type ="file" name="receipt_image" accept = "image/*" >
+	</div>
+
+<!-- 					<div>
+					<input type="radio" name="type" value="#" 
+					onclick="document.getElementById('text').removeAttribute('disabled')">Receipt?
+					<input type="file" id="file" name="custom" accept="image/*">
+					</div>
+					<input type="radio" name="type" value="receipt_image" 
+					onclick="document.getElementById('sel').removeAttribute('disabled')">No Receipt
+					</div> -->
+					<button>
+					<span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Create</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
