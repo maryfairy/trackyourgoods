@@ -41,39 +41,48 @@ purchasedate = datetime.date.today() - relativedelta(months=3)
 #Create dummy items
 Item1 = Item(name = "Bicycle", \
 		    description = "Specialized Dolce Elite 2009", \
-		    value = "$1200", \
+		    value = "$1000", \
 		    category = "Hobbies", \
-		    closet = closet1 \
-		    #upload_date = datetime.date.today(), \
-		    #date_purchased = purchasedate
+		    closet = closet1, \
+		    photo_link = "static/img/item/1.jpg"
+		    )
+
+Item2 = Item(name = "Camera", \
+		    description = "Canon Digital 2008", \
+		    value = "$200", \
+		    category = "Electronics", \
+		    closet = closet1, \
+		    photo_link = "static/img/item/2.jpg"
+		    )
+
+Item3 = Item(name = "Don Julio", \
+		    description = "Unopened Tequila", \
+		    value = "$30", \
+		    category = "Kitchen + Dining", \
+		    closet = closet1, \
+		    photo_link = "static/img/item/3.jpg"
+		    )
+
+Item4 = Item(name = "Ring", \
+		    description = "Tiffany's Ring", \
+		    value = "$125", \
+		    category = "Clothing", \
+		    closet = closet1, \
+		    photo_link = "static/img/item/4.jpg"
+		    )
+
+Item5 = Item(name = "Bracelet", \
+		    description = "David Yurman Bracelet", \
+		    value = "$750", \
+		    category = "Clothing", \
+		    closet = closet1, \
+		    photo_link = "static/img/item/5.jpg" 
 		    )
 
 session.add(Item1)
+session.add(Item2)
+session.add(Item3)
+session.add(Item4)
+session.add(Item5)
 session.commit()
 
-# closet2 = Closet(user_id=2, name="Mary's First Closet")
-
-# Item2 = Item(name = "Bicycle", \
-# 		    description = "Specialized Dolce Elite 2009", \
-# 		    value = "$1200", \
-# 		    category = "Hobbies", \
-# 		    closet = 2 \
-# 		    #upload_date = datetime.date.today(), \
-# 		    #date_purchased = purchasedate
-# 		    )
-
-# session.add(Item1)
-# session.commit()
-
-# Item2 = Item(name = "Bicycle", \
-# 		    description = "Specialized Dolce Elite 2009", \
-# 		    value = "$1200", \
-# 		    category = "Hobbies", \
-# 		    closet = 3, \
-# 		    user = 2
-# 		    #upload_date = datetime.date.today(), \
-# 		    #date_purchased = purchasedate
-# 		    )
-
-# session.add(Item2)
-# session.commit()
