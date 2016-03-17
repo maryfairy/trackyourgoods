@@ -241,7 +241,7 @@ def closetsJSON():
 	return jsonify(closets=[r.serialize for r in closets])
 
 @app.route('/closet/<int:closet_id>/item/<int:item_id>/JSON')
-def ItemJSON(closet_id, item_id):
+def ItemsJSON(closet_id, item_id):
 	items = session.query(Item).filter_by(id=item_id).one()
 	return jsonify(Item=items.serialize)
 
