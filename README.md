@@ -20,6 +20,6 @@ Udacity Project 3
 4 - CSRF implemented in appropriate HTML files using Seasurf <br>
 
 ## 
--- Login found on left toolbar (click upper left menubar and arrow down)
--- Delete/Edit items found by clicking three dot menu bars near each closet/item
--- Adding new closets/items can be done by hitting button on bottom right
+-- Login found on left toolbar (click upper left menubar and arrow down) <br>
+-- Delete/Edit items found by clicking three dot menu bars near each closet/item <br>
+-- Adding new closets/items can be done by hitting button on bottom right <br>
