@@ -4,6 +4,10 @@ Udacity Project 3
 ## Setup
 1 - Clone Vagrant <br>
 2 - Install dependencies (SQLAlchemy, dict2xml, flask-seasurf) <br>
+2a) additional dependencies <br>
+sudo pip install werkzeug==0.8.3 <br>
+sudo pip install flask==0.9 <br>
+sudo pip install Flask-Login==0.1.3 <br>
 3 - Setup Database (run database_setup.py) <br>
 3a - Insert dummy data by running (dummyclosetdata.py) <br>
 3b - May have to change username in dummyclosetdata.py <br>
