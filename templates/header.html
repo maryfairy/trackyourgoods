@@ -1,9 +1,5 @@
 <div class="row top-menu">
 	<div class="col-md-6">
-	<!-- 		<a href="{{url_for('showClosets')}}">
-				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>Show All Closets
-			</a> -->
-
 	</div>
 	<div class="col-md-6 text-right">
 		<div class="username">
@@ -12,21 +8,12 @@
 			{% if 'username' not in login_session %}
 				<a href="{{url_for('showLogin')}}">Login</a>
 			{% else %}
-						<img src="{{ login_session.picture}}" alt="Mountain View" style="width:45px;height:45px;">
-<!-- 								{{ login_session.username }} -->
-				<p><a
+				<img src="{{ login_session.picture}}" alt="Mountain View" style="width:45px;height:45px;">
+				<p> <br>
+				<a
 				 href="{{url_for('gdisconnect')}}">Logout</a>
 				</p>
 			{% endif %}
 		</div>
-
-<!-- 					<p><a href="{{url_for('gdisconnect')}}">
-						<span class="glyphicon glyphicon-home" aria-hidden="true"></span>Logout
-						</a>
-					</p>
-					<p><a href="{{url_for('showLogin')}}">
-						<span class="glyphicon glyphicon-home" aria-hidden="true"></span>Login
-						</a>
-					</p> -->
 	</div>
 </div>

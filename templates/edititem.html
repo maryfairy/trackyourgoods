@@ -6,7 +6,7 @@
 	</div>
 	<div class="row banner menu">
 		<div class="col-md-11 col-md-offset-1 padding-none">
-			<h1>New Closet Item</h1>
+			<h1>Edit Item</h1>
 		</div>
 	</div>
 	<div class="row">
@@ -31,81 +31,52 @@
 					<div class="input-group">
 					<input type ="file" name="file" accept = "image/*">
 					</div>
-
-
-					<!-- <label for="price">Upload Date:</label>
-					<div class="input-group">
-						<div class="input-group-addon">$</div>
-						<input type ="date" class="form-control" maxlength="10" name="upload_date" placeholder="Date">
-					</div>
-					<label for="price">Date Purchased:</label>
-					<div class="input-group">
-						<div class="input-group-addon">$</div>
-						<input type ="date" class="form-control" maxlength="10" name="date_purchased" placeholder="Date"> -->
-<!-- 					</div> -->
 					<p></p>
 					<dt>Category:</dt>
 
-	{% if item.category == 'Clothing' %}
-		<dd><input type ='radio' name='category' value='Clothing'checked >Clothing</dd>
-	{%else%}
-	<dd><input type ='radio' name='category' value='Clothing' >Clothing</dd>
-    {% endif %}
+					{% if item.category == 'Clothing' %}
+						<dd><input type ='radio' name='category' value='Clothing'checked >Clothing</dd>
+					{%else%}
+					<dd><input type ='radio' name='category' value='Clothing' >Clothing</dd>
+				    {% endif %}
 
-	{% if item.category == 'Electronics' %}
-		<dd><input type ='radio' name='category' value='Electronics'checked >Clothing</dd>
-	{%else%}
-	<dd><input type ='radio' name='category' value='Electronics' >Electronics</dd>
-    {% endif %}
+					{% if item.category == 'Electronics' %}
+						<dd><input type ='radio' name='category' value='Electronics'checked >Electronics</dd>
+					{%else%}
+					<dd><input type ='radio' name='category' value='Electronics' >Electronics</dd>
+				    {% endif %}
 
-	{% if item.category == 'Office + Living' %}
-		<dd><input type ='radio' name='category' value='Office + Living'checked >Clothing</dd>
-	{%else%}
-	<dd><input type ='radio' name='category' value='Office + Living' >Office + Living</dd>
-    {% endif %}
+					{% if item.category == 'Office + Living' %}
+						<dd><input type ='radio' name='category' value='Office + Living'checked >Office + Living</dd>
+					{%else%}
+					<dd><input type ='radio' name='category' value='Office + Living' >Office + Living</dd>
+				    {% endif %}
 
-	{% if item.category == 'Kitchen + Dining' %}
-		<dd><input type ='radio' name='category' value='Kitchen + Dining'checked >Clothing</dd>
-	{%else%}
-	<dd><input type ='radio' name='category' value='Kitchen + Dining' >Kitchen + Dining</dd>
-    {% endif %}
+					{% if item.category == 'Kitchen + Dining' %}
+						<dd><input type ='radio' name='category' value='Kitchen + Dining'checked >Kitchen + Dining</dd>
+					{%else%}
+					<dd><input type ='radio' name='category' value='Kitchen + Dining' >Kitchen + Dining</dd>
+				    {% endif %}
 
-	{% if item.category == 'Bedroom' %}
-		<dd><input type ='radio' name='category' value='Bedroom'checked >Clothing</dd>
-	{%else%}
-	<dd><input type ='radio' name='category' value='Bedroom' >Bedroom</dd>
-    {% endif %}
+					{% if item.category == 'Bedroom' %}
+						<dd><input type ='radio' name='category' value='Bedroom'checked >Bedroom</dd>
+					{%else%}
+					<dd><input type ='radio' name='category' value='Bedroom' >Bedroom</dd>
+				    {% endif %}
 
-	{% if item.category == 'Bathroom' %}
-		<dd><input type ='radio' name='category' value='Bathroom'checked >Clothing</dd>
-	{%else%}
-	<dd><input type ='radio' name='category' value='Bathroom' >Bathroom</dd>
-	{% endif %}
-	{% if item.category == 'Hobbies' %}
-		<dd><input type ='radio' name='category' value='Hobbies'checked >Hobbies</dd>
-	{%else%}
-	<dd><input type ='radio' name='category' value='Bathroom' >Hobbies</dd>
-	{% endif %}
+					{% if item.category == 'Bathroom' %}
+						<dd><input type ='radio' name='category' value='Bathroom'checked >Bathroom</dd>
+					{%else%}
+					<dd><input type ='radio' name='category' value='Bathroom' >Bathroom</dd>
+					{% endif %}
+					{% if item.category == 'Hobbies' %}
+						<dd><input type ='radio' name='category' value='Hobbies'checked >Hobbies</dd>
+					{%else%}
+					<dd><input type ='radio' name='category' value='Hobbies' >Hobbies</dd>
+					{% endif %}
 
-	<div>
-	<label for="category">Receipt</label>
-	</div>
+					<div>
 
-
-	<div>
-	<label for="receipt_image">Receipt Image</label>
-	<div class="input-group">
-		<input type ="file" name="receipt_image" accept = "image/*" >
-	</div>
-
-<!-- 					<div>
-					<input type="radio" name="type" value="#" 
-					onclick="document.getElementById('text').removeAttribute('disabled')">Receipt?
-					<input type="file" id="file" name="custom" accept="image/*">
-					</div>
-					<input type="radio" name="type" value="receipt_image" 
-					onclick="document.getElementById('sel').removeAttribute('disabled')">No Receipt
-					</div> -->
 					<button>
 					<span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Create</button>
 				</div>

@@ -1,12 +1,12 @@
 {% extends "main.html" %}
 {% block content %}
-{% include "header.html" %}
+<!-- {% include "header.html" %} -->
 	<div class="row divider green">
 		<div class="col-md-12"></div>
 	</div>
 	<div class="row banner menu">
 		<div class="col-md-11 col-md-offset-1 padding-none">
-			<h1>New Closet Item</h1>
+			<h1>Add Item</h1>
 		</div>
 	</div>
 	<div class="row">
@@ -15,10 +15,10 @@
 				<div class="form-group">
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
 					<label for="name">Name:</label>
-					<input type ="text" maxlength="50" class="form-control" name="name"placeholder="Name of the category">
+					<input type ="text" maxlength="50" class="form-control" name="name"placeholder="Name of Item">
 
 					<label for="description">Description:</label>
-					<textarea class="form-control" maxlength="250" rows="3" name="description" placeholder="Description of the category"></textarea>
+					<textarea class="form-control" maxlength="250" rows="3" name="description" placeholder="Description of the Item"></textarea>
 
 					<label for="value">Value:</label>
 					<div class="input-group">
@@ -32,18 +32,6 @@
 						<input type ="file" name="file" accept = "image/*">
 
 					</div>
-
-
-					<!-- <label for="price">Upload Date:</label>
-					<div class="input-group">
-						<div class="input-group-addon">$</div>
-						<input type ="date" class="form-control" maxlength="10" name="upload_date" placeholder="Date">
-					</div>
-					<label for="price">Date Purchased:</label>
-					<div class="input-group">
-						<div class="input-group-addon">$</div>
-						<input type ="date" class="form-control" maxlength="10" name="date_purchased" placeholder="Date"> -->
-<!-- 					</div> -->
 					<p></p>
 					<div>
 					<label for="category">Category:</label>
@@ -54,46 +42,46 @@
 					</div>
 					<div class="radio">
 					  <label>
-					    <input type="radio" name="category" id="category2" value="Entree">Electronics
+					    <input type="radio" name="category" id="category2" value="Electronics">Electronics
 					  </label>
 					</div>
 					<div class="radio">
 					  <label>
-					    <input type="radio" name="category" id="category3" value="Dessert">Office + Living
+					    <input type="radio" name="category" id="category3" value="Office + Living">Office + Living
 					  </label>
 					</div>
 					<div class="radio">
 					  <label>
-					    <input type="radio" name="category" id="category4" value="Beverage">Kitchen + Dining
+					    <input type="radio" name="category" id="category4" value="Kitchen + Dining">Kitchen + Dining
 					  </label>
 					</div>
 					<div class="radio">
 					  <label>
-					    <input type="radio" name="category" id="category5" value="Dessert">Bedroom
+					    <input type="radio" name="category" id="category5" value="Bedroom">Bedroom
 					  </label>
 					</div>
 					<div class="radio">
 					  <label>
-					    <input type="radio" name="category" id="category6" value="Beverage">Bathroom
+					    <input type="radio" name="category" id="category6" value="Bathroom">Bathroom
 					  </label>
 					</div>
 					<div class="radio">
 					  <label>
-					    <input type="radio" name="category" id="category6" value="Beverage">Hobbies
+					    <input type="radio" name="category" id="category7" value="Hobbies">Hobbies
 					  </label>
 					</div>
-
+<!-- 
 					<div>
 					<label for="category">Receipt</label>
-					</div>
+					</div> -->
 
 
 					<div>
-					<label for="receipt_image">Receipt Image</label>
+<!-- 					<label for="receipt_image">Receipt Image</label>
 					<div class="input-group">
 						<input type ="file" name="receipt_image" accept = "image/*">
 
-					</div>
+					</div> -->
 
 <!-- 					<div>
 					<input type="radio" name="type" value="#" 
@@ -104,7 +92,7 @@
 					onclick="document.getElementById('sel').removeAttribute('disabled')">No Receipt
 					</div> -->
 					<button>
-					<span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Create</button>
+					Create</button>
 				</div>
 			</form>
 		</div>
