@@ -138,7 +138,6 @@ def gconnect():
 	if not user_id:
 		user_id = createUser(login_session)
 	login_session['user_id'] = user_id
-	print(login_session)
 
 	output = ''
 	output += '<h1>Welcome, '
@@ -183,8 +182,8 @@ def gdisconnect():
 			json.dumps('Current user not connected.'), 401)
 		response.headers['Content-Type'] = 'application/json'
 		return response
-	access_token = credentials.access_token
-	url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' %  login_session.get('credentials')
+	#access_token = credentials.access_token
+	url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % credentials
 	h = httplib2.Http()
 	result = h.request(url, 'GET')[0]
 
@@ -252,7 +251,7 @@ def showClosets():
 		##TODO: make alert function and then redirect to Login Page
 		return redirect('/login')
 		#response = "<script>function myFunction() {alert('Not Loggedin, Please Login.'); }</script><body onload='myFunction()''>"
-	print(login_session)
+	#print(login_session)
 	currentUserId = login_session['user_id']
 	closets = session.query(Closet).filter_by(user_id = currentUserId).order_by(asc(Closet.name))
 	## Only want to make the users closets visible
@@ -268,7 +267,7 @@ def showUpdates():
 		##TODO: make alert function and then redirect to Login Page
 		return redirect('/login')
 		#response = "<script>function myFunction() {alert('Not Loggedin, Please Login.'); }</script><body onload='myFunction()''>"
-	print(login_session)
+	#print(login_session)
 	currentUserId = login_session['user_id']
 	closets = session.query(Closet).filter_by(user_id = currentUserId).order_by(asc(Closet.name))
 	## Only want to make the users closets visible
@@ -366,10 +365,10 @@ def newItem(closet_id):
 		else:
 			if file and allowed_file(file.filename):
 				fileExt = str(file.filename).split('.')[1]
-				print("filext:" + fileExt)
+				#print("filext:" + fileExt)
 				photo_link = str(session.query(Item).order_by(
 					Item.id.desc()).first().id+1) + '.' + fileExt
-				print("photo_link:" + photo_link)
+				#print("photo_link:" + photo_link)
 
 				file.save(os.path.join('static/img/item/', photo_link))
 		new_link = 'static/img/item/' + photo_link

@@ -48,7 +48,7 @@ class Item(Base):
 	category = Column(Integer, ForeignKey('category.name'))
 	category_id = Column(Integer, ForeignKey('category.id'))
 	closet_id = Column(Integer, ForeignKey('closet.id'))
-	closet = relationship(Closet, cascade = 'delete')
+	closet = relationship(Closet)
 	user_id = Column(Integer, ForeignKey('user.id'))
 	user = relationship(User)
 	photo_link = Column(String(250))
