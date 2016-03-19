@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 import datetime
 from datetime import date, timedelta
 ##sudo pip install python-dateutil --upgrade
-from dateutil.relativedelta import relativedelta
+##from dateutil.relativedelta import relativedelta
 
 from database_setup import Base, User, Closet, Item
 
@@ -36,7 +36,7 @@ session.add(closet1)
 session.commit()
 
 ## Date purchased
-purchasedate = datetime.date.today() - relativedelta(months=3)
+## purchasedate = datetime.date.today() - relativedelta(months=3)
 
 #Create dummy items
 Item1 = Item(name = "Bicycle", \

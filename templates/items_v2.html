@@ -156,24 +156,6 @@
             </div>
         </div>
             {% endfor %}
-<!-- TRY AND GET A FOR LOOP GOING FOR ADDING 1 FRAME FOR EACH CLOSET -->
-<!--           {% for i in items %}
-          <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-              <h5>{{i.category}}</h5>
-              <h6>{{i.name}}</h6>
-            <a href = "{{url_for('showItems', closet_id = closet.id)}}">
-            </a>
-            <div class="mdl-layout-spacer"></div>
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="button'+{{i.id}}+'">
-              <i class="material-icons">more_vert</i>
-            </button>
-            <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="button'+{{i.id}}+'">
-              <li class="mdl-menu__item"> <a href="{{url_for('editItem', closet_id = i.closet_id, item_id = i.id)}}"> Edit Item </a></li>
-              <li class="mdl-menu__item"> <a href="{{url_for('deleteItem', closet_id = i.closet_id, item_id = i.id)}}"> Delete Item </a></li>
-            </ul> -->
-<!-- End of Frame 
-          </div> 
-          {% endfor %} -->
           </div>
         </div>
       </main>
@@ -181,7 +163,6 @@
         <button><a href="../item/new" id="view-source" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent">
           <i class="material-icons mdl-color-text--white" role="presentation">add</i></a> 
         </button>
-<!--       <a href="https://github.com/google/material-design-lite/blob/master/templates/dashboard/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white">View Source</a> -->
     <script src="https://code.getmdl.io/1.1.2/material.min.js"></script>
   </body>
 </html>

@@ -119,7 +119,7 @@ def gconnect():
 		return response
 
 	# Store the access token in the session for later use.
-	login_session['credentials'] = credentials
+	login_session['credentials'] = credentials.access_token
 	login_session['gplus_id'] = gplus_id
 
 	# Get user info
@@ -138,6 +138,7 @@ def gconnect():
 	if not user_id:
 		user_id = createUser(login_session)
 	login_session['user_id'] = user_id
+	print(login_session)
 
 	output = ''
 	output += '<h1>Welcome, '
@@ -183,7 +184,7 @@ def gdisconnect():
 		response.headers['Content-Type'] = 'application/json'
 		return response
 	access_token = credentials.access_token
-	url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
+	url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' %  login_session.get('credentials')
 	h = httplib2.Http()
 	result = h.request(url, 'GET')[0]
 
@@ -216,12 +217,6 @@ def closetItemJSON(closet_id):
         closet_id=closet_id).all()
     return jsonify(Item=[i.serialize for i in items])
 
-
-@app.route('/closet/<int:closet_id>/item/<int:item_id>/JSON')
-def itemItemJSON(closet_id, item_id):
-    Items = session.query(Item).filter_by(id=item_id).one()
-    return jsonify(Item=Items.serialize)
-
 ### JSON APIs (basically same format as in the closet lesson)
 @app.route('/closet/<int:closet_id>/item/JSON')
 def closetMenuJSON(closet_id):
@@ -240,11 +235,6 @@ def closetsJSON():
 	closets = session.query(Closet).all()
 	return jsonify(closets=[r.serialize for r in closets])
 
-@app.route('/closet/<int:closet_id>/item/<int:item_id>/JSON')
-def ItemJSON(closet_id, item_id):
-	items = session.query(Item).filter_by(id=item_id).one()
-	return jsonify(Item=items.serialize)
-
 ### Adding XML API
 @app.route('/closet/<int:closet_id>/collection_XML')
 def closet_items_XML(closet_id):
@@ -255,19 +245,38 @@ def closet_items_XML(closet_id):
 # Show all Closets
 @app.route('/')
 @app.route('/closets/')
+@app.route('/index')
 def showClosets():
 	credentials = login_session.get('credentials')
 	if credentials is None:
 		##TODO: make alert function and then redirect to Login Page
 		return redirect('/login')
 		#response = "<script>function myFunction() {alert('Not Loggedin, Please Login.'); }</script><body onload='myFunction()''>"
+	print(login_session)
 	currentUserId = login_session['user_id']
 	closets = session.query(Closet).filter_by(user_id = currentUserId).order_by(asc(Closet.name))
 	## Only want to make the users closets visible
 	if 'username' not in login_session:
 		return render_template('publicclosets.html', closets=closets, login_session=login_session)
 	else:
-		return render_template('closets.html', closets=closets, login_session=login_session)
+		return render_template('index.html', closets=closets, login_session=login_session)
+
+@app.route('/updates/')
+def showUpdates():
+	credentials = login_session.get('credentials')
+	if credentials is None:
+		##TODO: make alert function and then redirect to Login Page
+		return redirect('/login')
+		#response = "<script>function myFunction() {alert('Not Loggedin, Please Login.'); }</script><body onload='myFunction()''>"
+	print(login_session)
+	currentUserId = login_session['user_id']
+	closets = session.query(Closet).filter_by(user_id = currentUserId).order_by(asc(Closet.name))
+	## Only want to make the users closets visible
+	if 'username' not in login_session:
+		return render_template('publicclosets.html', closets=closets, login_session=login_session)
+	else:
+		return render_template('updates.html', closets=closets, login_session=login_session)
+
 
 # CREATE a new Closet
 @app.route('/closets/new/', methods=['GET', 'POST'])
@@ -333,20 +342,7 @@ def showItems(closet_id):
 	closets = session.query(Closet).filter_by(id=closet_id)
 	#creator = getUserInfo(closets.user_id)
 	items = session.query(Item).filter_by(closet_id=closet_id).all()
-
-	for closet in items:
-		print closet.id
-		print closet.name
-		print closet.photo_link
-		print closet.receipt_image
-
-
-	return render_template('items.html', items=items, closet_id=closet_id, login_session=login_session)
-	##TODO: Make sure limit by user id what items can be viewed
-	# if 'username' not in login_session:
-	#     return render_template('publicclosets.html', closets=closets)
-	# else:
-	#     return render_template('item.html', closets=closets)
+	return render_template('items_v2.html', items=items, closet_id=closet_id, login_session=login_session)
 
 # Create a new item
 @app.route('/closet/<int:closet_id>/item/new/', methods=['GET', 'POST'])
@@ -360,28 +356,23 @@ def newItem(closet_id):
 		# Get filename and save w. filesys
 		file = request.files['file']
 
-		if file and allowed_file(file.filename):
-			fileExt = str(file.filename).split('.')[1]
-			print("filext:" + fileExt)
-			photo_link = str(session.query(Item).order_by(
-				Item.id.desc()).first().id+1) + '.' + fileExt
-			print("photo_link:" + photo_link)
+		## check if items are null
+		checkNullItems = session.query(Item).all()
+		fileExt = str(file.filename).split('.')[1]
+		
+		if not checkNullItems:
+			photo_link = str(1) + '.' + fileExt
 
-			file.save(os.path.join('static/img/item/', photo_link))
-			new_link = 'static/img/item/' + photo_link
+		else:
+			if file and allowed_file(file.filename):
+				fileExt = str(file.filename).split('.')[1]
+				print("filext:" + fileExt)
+				photo_link = str(session.query(Item).order_by(
+					Item.id.desc()).first().id+1) + '.' + fileExt
+				print("photo_link:" + photo_link)
 
-		file = request.files['receipt_image']
-
-		if file and allowed_file(file.filename):
-			fileExt = str(file.filename).split('.')[1]
-			print("filext:" + fileExt)
-			receipt_image = str(session.query(Item).order_by(
-				Item.id.desc()).first().id+1) + '.' + fileExt
-			print("receipt_image:" + receipt_image)
-
-			file.save(os.path.join('static/img/receipt/', receipt_image))
-			receipt_link = 'static/img/receipt/' + receipt_image
-
+				file.save(os.path.join('static/img/item/', photo_link))
+		new_link = 'static/img/item/' + photo_link
 
 		newItem = Item(name=request.form['name'], 
 				description=request.form['description'],
@@ -389,8 +380,7 @@ def newItem(closet_id):
 				category=request.form['category'], 
 				closet_id=closet_id, 
 				user_id=closet.user_id,
-				photo_link = new_link,
-				receipt_image = receipt_link
+				photo_link = new_link
 				)
 
 		session.add(newItem)
@@ -428,37 +418,6 @@ def editItem(closet_id, item_id):
 				file.save(os.path.join('static/img/item/', photo_link))
 				new_link = 'static/img/item/' + photo_link
 				editedItem.photo_link = new_link  
-		if True:
-			file = request.files['receipt_image']
-			if file and allowed_file(file.filename):
-				same_id = editedItem.id
-				fileExt = str(file.filename).split('.')[1]
-				receipt_link = str(same_id) + '.' + fileExt
-				file.save(os.path.join('static/img/receipt', photo_link))
-				new_link = 'static/img/receipt/' + photo_link
-				editedItem.receipt_image = new_link  
-
-		# if request.form['file']:
-		# 	file = request.files['file']
-		# 	if file and allowed_file(file.filename):
-		# 		fileExt = str(file.filename).split('.')[1]
-		# 		photo_link = str(session.query(Item).order_by(
-		# 			Item.id.desc()).first().id+1) + '.' + fileExt
-		# 	file.save(os.path.join('static/img/item/', photo_link))
-		# 	new_link = 'static/img/item/' + photo_link
-		# 	print(new_link)
-		# 	editedItem.photo_link = new_link  
-		# if request.form['receipt_image']:
-		# 	file = request.files['receipt_image']
-		# 	if file and allowed_file(file.filename):
-		# 		fileExt = str(file.filename).split('.')[1]
-		# 		print("filext:" + fileExt)
-		# 		receipt_image = str(session.query(Item).order_by(
-		# 			Item.id.desc()).first().id+1) + '.' + fileExt
-		# 		print("receipt_image:" + receipt_image)
-		# 		file.save(os.path.join('static/img/receipt/', receipt_image))
-		# 		receipt_link = 'static/img/receipt/' + receipt_image
-		# 		editedItem.receipt_image = receipt_link  		
 		session.add(editedItem)
 		session.commit()
 		flash('Item Item Successfully Edited')
